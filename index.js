@@ -1,10 +1,28 @@
-function greet(name) {
-    console.log(`Hello ${name}`)
-}
+// const EventEmitter = require("events")
 
-function greetUmair(greetFn) {
-    const name = "Umair"
-    greetFn(name)
-}
+// const emitter = new EventEmitter()
+// emitter.on("order-pizza", (size, topping) => {
+//     console.log(`Order Received, Baking ${size} Pizza with ${topping} `)
+// })
 
-greetUmair(greet)
+// emitter.on("order-pizza", (size) => {
+//     if (size == "Large") {
+//         console.log("Serving Extra Complements")
+//     }
+// })
+// emitter.emit("order-pizza", "Large", "Mushroom")
+
+
+const PizzaShop = require("./pizza-shop")
+const DrinkMachine = require("./drink-machine")
+const drinkMachine = new DrinkMachine()
+
+const pizzaShop = new PizzaShop()
+
+pizzaShop.on("order", (size, topping) => {
+    console.log(`Order Received, Baking ${size} Pizza with ${topping} `)
+    drinkMachine.serveDrink(size)
+})
+pizzaShop.order("Large", "Tommato")
+pizzaShop.displayOrderNumber()
+
